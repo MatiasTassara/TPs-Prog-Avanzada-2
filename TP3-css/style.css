@@ -1,0 +1,136 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/*reseteamos el margen y padding por defecto del navegador, y a partir de aca ponemos nuestros estilos*/
+h1{
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+/* Podemos agrupar todo lo referido a font en 1 sola linea...*/
+h2{
+    font: bold 14px sans-serif;
+}
+
+/*podemos seleccionar mas de 1 elemento HTML a la vez*/
+
+header, section, footer, aside, nav, article, hgroup{
+    /*border: 1px solid black;*/
+    display: block;
+}
+
+
+
+
+body{
+    text-align: center; /*los elementos empiezan de la izquierda pero estan alineados al centro*/
+    background: #398cbd;
+}
+
+
+.agrupar{
+    width: 960px;
+    background: rgb(230, 236, 236);
+    margin: 15px auto; /*el margen es el espacio por fuera del elemento, primero eje y, luego x*/ 
+    /*padding: 40px; */ /*espaciado dentro del div hasta los bordes*/
+    border: 1px solid black
+}
+
+.cabecera{
+    background:#be3a3a;
+    border: 1px solid #999999;
+    padding: 20px;
+}
+.cabecera h1{
+    text-align: left;
+    color: #eee25c
+}
+
+.menu{
+    background: #257038;
+    padding: 5px 15px;
+    text-align: left;
+}
+
+/*todos los elementos li que esten dentro de un elemento con clase menu*/
+.menu li{
+    list-style: none; /*estilo por defecto de la lista no quiero ninguno ej. puntos marcadores de lista*/
+    padding: 5px;
+    font: bold 14px verdana;
+    display: inline-block; /*cambiamos de "en bloque" a "en linea", inline-block nos permite definir ancho y alto, ademas de margenes, a diferencia de inline*/
+}
+.menu-text{
+    color: antiquewhite;
+}
+
+article{
+    background: #eee25c;
+    border: 1px solid #999;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+details{
+    background: #398cbd;
+    border: 1px solid #999;
+    padding: 15px;
+}
+time{
+    color: #999;
+}
+article footer{
+    text-align: right;
+    margin-top: 20px;
+}
+article p{
+    margin: 10px;
+}
+.seccion{
+    margin: 20px;
+    width: 600px;
+    float: left; 
+}
+
+.columna{
+    margin: 20px 0;
+    width: 300px;
+    float: left;
+    padding: 10px;
+}
+.columna blockquote{
+    border: 1px solid black;
+    padding: 40px;
+    background: #be7d1b;
+    margin-bottom: 20px;
+}
+
+.pie{
+    clear: both;
+    padding: 20px;
+    background: #2d3436;
+    color: #ffffff;
+}
+
+img{
+    width: 80px;
+    display: block;
+    margin: 20px auto;
+}
+a:link{
+    color:purple;
+}
+a:visited{
+    color: black;
+}
+
+a:hover{
+    color: yellow;
+}
+a:active{
+    color: #be3a3a
+}
+
+.over{
+    border: 1px solid red;
+}

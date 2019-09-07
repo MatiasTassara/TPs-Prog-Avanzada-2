@@ -1,0 +1,23 @@
+#button-sub{
+    display:block;
+}
+:root {
+    --borderWidth: 4px;
+    --height: 14px;
+    --width: 8px;
+    --borderColor: #78b13f;
+  }
+  
+
+ .check {
+    display: inline-block;
+    transform: rotate(45deg);
+    height: var(--height);
+    width: var(--width);
+    border-bottom: var(--borderWidth) solid var(--borderColor);
+    border-right: var(--borderWidth) solid var(--borderColor);
+    margin-left: 10px;
+  }
+  
+
+    

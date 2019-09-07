@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tp2</title>
+</head>
+<style>
+    table, th, td {
+    border: 1px solid black;
+    }
+    </style>
+<body>
+    <p id="myId"></p>
+
+    <p class="test"></p>
+    <p class="test"></p>
+    <input type="button" onclick="insertRow()" value="Insert row">
+    <input type="button" onclick="deleteRow()" value="Delete row">
+    <br><br>
+    <table style="width:100%" class="myTable">
+        <tr>
+            <th id="head-1">Header 1</th>
+            <th id="head-2">Header 2</th>
+        </tr>
+    </table>
+    <br>
+    <input id="high-button" type= "button" onclick= "highlight()" value= "Highlight words">
+    <br><br>
+    <p>
+        Lorem <span class= "myClass" >ipsum</span> dolor sit <span class= "myClass" >amet</span >, consectetur adipiscing
+        elit, sed do eiusmod tempor <span class= "myClass">incididunt</span>
+        ut labore et dolor <span class= "myClass">magna</span > aliqua.
+    </p>
+</body>
+<script src="script.js"></script>
+</html>

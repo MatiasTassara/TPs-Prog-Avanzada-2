@@ -1,0 +1,21 @@
+
+.container{
+    margin: auto;
+    border: solid black;
+    width: 300px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: darkgrey;
+}
+
+#casio{
+    text-align: right;
+    font-family: Courier, "Lucida Console", monospace;
+    font-size: 20px;
+}
+
+#numero1{
+    margin: auto;
+    text-align: right;
+    width: 270px;
+}
