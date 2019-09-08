@@ -1,0 +1,55 @@
+body {
+    background-color: #474949ce;
+    
+}
+#cuerpo{
+    width: 50%;
+    margin-left: 170px;
+    align-content: center;
+}
+
+
+.h7 {
+    font-size: 0.8rem;
+}
+
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
+#nav-letters{
+    color: white;
+    font-size: 30px;
+}
+#nav-barr{
+    background: black;
+}
+#button-addon2{
+   
+    border: 2px solid blue;
+}
+#input-navbar-search{
+    border: 3px solid blue; 
+}
+
+.comment-title{
+    height: 36px;
+    vertical-align: text-bottom;
+    text-align: center;
+    
+}
