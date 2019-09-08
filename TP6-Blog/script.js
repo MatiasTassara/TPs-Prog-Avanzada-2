@@ -43,7 +43,6 @@ async function getPostsAndComments(){
     const posts = await getPosts();
     const comments = await getComments();
     let completePosts = mapPostsAndComments(posts,comments);
-    console.log(completePosts);
     insertPosts(completePosts);
 };
 
@@ -55,8 +54,8 @@ const mapPostsAndComments = (posts,comments) => {
                 current.commentsForThisPost.push(element);
             }
         });
+        
     });
-    console.log(posts);
     return posts;
 }
 
@@ -64,14 +63,14 @@ document.getElementById('share-button').addEventListener('click', () =>{
     let title = document.getElementById('post-title').value;
     let body = document.getElementById('post-body').value;
     const data = {title,body}
-    //console.log(title);
     fetch(`https://utn2019-avanzada2-tp6.herokuapp.com//api/posts?title=${title}&body=${body}`,{
         method: 'POST',
-        body: JSON.stringify(data), // data can be `string` or {object}!
-    headers:{
-        'Content-Type': 'application/json'
-    }
-    }).then((request) => request.json())
+        body: JSON.stringify(data), 
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(request => request.json())
     .catch(error => console.log(error));
     title = '';
     body ='';
@@ -85,8 +84,6 @@ const insertPosts = (postsArr) => {
         date = new Date(current.date);
         date = date.toString();
         date =  date.slice(0,24);
-        console.log(current.id);
-        
         
         let container = document.getElementById('posts-container');
         container.insertAdjacentHTML('beforeend',`<div class="card gedf-card"><div class="card-header"><div class="d-flex justify-content-between align-items-center">` +
@@ -99,8 +96,9 @@ const insertPosts = (postsArr) => {
         `<h5 class="card-title">${title}</h5></a><p class="card-text">` +
         `${body}` + `</div><div id="card-footers${current.id}"><div class="card-footer"><a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>` +
         `<a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a><a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a></div></div></div>`);
+        
         if(current.commentsForThisPost.length > 0){
-            document.getElementById(`card-footers${current.id}`).insertAdjacentHTML('afterbegin','<div class="card-footer comment-title "><p>Comentarios</p></div>')
+            document.getElementById(`card-footers${current.id}`).insertAdjacentHTML('beforeend','<div class="card-footer comment-title "><p>Comentarios</p></div>')
             current.commentsForThisPost.forEach(actual => {
                 date = new Date(actual.date);
                 date = date.toString();
@@ -108,9 +106,17 @@ const insertPosts = (postsArr) => {
                 document.getElementById(`card-footers${current.id}`).insertAdjacentHTML('beforeend',`<div class="card-footer bg-white">` + 
                 `<div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>${date}</div><p><div class="h6 text-muted">@${actual.author}</div>${actual.text}</p></div>`);
             })
+            
         }
     })
 };
+
+const commentFunc = (element) =>{
+    element.addEventListener('click',() => {
+
+    })
+}
+
 
 getPostsAndComments();
 
@@ -118,4 +124,6 @@ getPostsAndComments();
 
 POST /api/comments?post_id={value}&author={value}&text={value} - Publicar un
 comment, el post debe existir*/
-
+/*
+<div class="form-group"><input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md">
+</div><br><br>*/
