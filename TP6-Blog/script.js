@@ -71,6 +71,7 @@ document.getElementById('share-button').addEventListener('click', () =>{
     })
     .then(request => request.text())
     .catch(error => console.log(error));
+    
 });
 
 const insertPosts = (postsArr) => {
@@ -78,12 +79,9 @@ const insertPosts = (postsArr) => {
     postsArr.forEach(current => {
         title = current.title;
         body = current.body;
-        date = new Date(current.date);
-        date = date.toString();
-        date =  date.slice(0,24);
-        
-        let container = document.getElementById('posts-container');
-        container.insertAdjacentHTML('beforeend',`<div class="card gedf-card"><div class="card-header"><div class="d-flex justify-content-between align-items-center">` +
+        date = new Date(current.date).toString().slice(0,24);
+       
+        let container = document.getElementById('posts-container').insertAdjacentHTML('afterbegin',`<div class="card gedf-card"><div class="card-header"><div class="d-flex justify-content-between align-items-center">` +
         `<div class="d-flex justify-content-between align-items-center"><div class="mr-2"><img class="rounded-circle" width="45" src="/images/mrX.jpg" alt="">` +
         `</div><div class="ml-2"><div class="h5 m-0">@anonimo</div><div class="h7 text-muted">Autor anonimo</div></div></div>` + 
         `<div><div class="dropdown"><button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">` + 
