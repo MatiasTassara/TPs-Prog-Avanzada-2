@@ -48,8 +48,8 @@ body {
 }
 
 .comment-title{
-    height: 36px;
+    height: 40px;
     vertical-align: text-bottom;
     text-align: center;
-    
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
