@@ -94,16 +94,15 @@ const insertPosts = (postsArr) => {
         
         if(current.commentsForThisPost.length > 0){
             document.getElementById(`card-footers${current.id}`).insertAdjacentHTML('beforeend','<div class="card-footer comment-title "><p>Comentarios</p></div>')
+            
             current.commentsForThisPost.forEach(actual => {
-                date = new Date(actual.date);
-                date = date.toString();
-                date =  date.slice(0,24);
+                date = new Date(actual.date).toString().slice(0,24);
                 document.getElementById(`card-footers${current.id}`).insertAdjacentHTML('beforeend',`<div class="card-footer bg-white">` + 
                 `<div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>${date}</div><p><div class="h6 text-muted">@${actual.author}</div>${actual.text}</p></div>`);
-            })
+            });
             
         }
-    })
+    });
 };
 
 getPostsAndComments();
