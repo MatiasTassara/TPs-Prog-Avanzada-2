@@ -36,7 +36,7 @@ const getPosts = () => {
         }
         request.send();
     });
-}
+};
 */
 
 async function getPostsAndComments(){
@@ -54,7 +54,6 @@ const mapPostsAndComments = (posts,comments) => {
                 current.commentsForThisPost.push(element);
             }
         });
-        
     });
     return posts;
 }
@@ -70,10 +69,8 @@ document.getElementById('share-button').addEventListener('click', () =>{
             'Content-Type': 'application/json'
         }
     })
-    .then(request => request.json())
+    .then(request => request.text())
     .catch(error => console.log(error));
-    title = '';
-    body ='';
 });
 
 const insertPosts = (postsArr) => {
@@ -111,19 +108,4 @@ const insertPosts = (postsArr) => {
     })
 };
 
-const commentFunc = (element) =>{
-    element.addEventListener('click',() => {
-
-    })
-}
-
-
 getPostsAndComments();
-
-/*
-
-POST /api/comments?post_id={value}&author={value}&text={value} - Publicar un
-comment, el post debe existir*/
-/*
-<div class="form-group"><input id="action_id" name="action_id" type="text" placeholder="" class="form-control input-md">
-</div><br><br>*/
