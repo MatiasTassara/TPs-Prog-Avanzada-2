@@ -39,10 +39,29 @@ const getPosts = () => {
 };
 */
 
+
+const makePost = () => {
+    return new Promise((resolve,reject) => {
+    const title = document.getElementById('post-title').value;
+    const body = document.getElementById('post-body').value;
+    const data = {title,body}
+        var request = new XMLHttpRequest();
+        request.open('POST',`https://utn2019-avanzada2-tp6.herokuapp.com//api/posts?title=${title}&body=${body}`);
+        request.responseType = 'json';
+        request.onload = () =>{
+            if(request.status <= 200 && request.status < 300){
+                resolve(request.response);
+            }else{
+                reject(Error('Posts not found' + request.statusText))
+            }
+        }
+        request.send();
+    });
+};
 async function getPostsAndComments(){
     const posts = await getPosts();
     const comments = await getComments();
-    let completePosts = mapPostsAndComments(posts,comments);
+    const completePosts = mapPostsAndComments(posts,comments);
     insertPosts(completePosts);
 };
 
@@ -57,8 +76,8 @@ const mapPostsAndComments = (posts,comments) => {
     });
     return posts;
 }
-
-document.getElementById('share-button').addEventListener('click', () =>{
+/*
+const makePost = () => {
     let title = document.getElementById('post-title').value;
     let body = document.getElementById('post-body').value;
     const data = {title,body}
@@ -71,7 +90,16 @@ document.getElementById('share-button').addEventListener('click', () =>{
     })
     .then(request => request.text())
     .catch(error => console.log(error));
-    
+}
+*/
+
+
+document.getElementById('share-button').addEventListener('click', async function abc() {
+    const a = await postPosts();
+    document.getElementById('posts-container').innerHTML = '';
+    getPostsAndComments();
+    document.getElementById('post-title').value = '';
+    document.getElementById('post-body').value = '';
 });
 
 const insertPosts = (postsArr) => {
@@ -81,7 +109,7 @@ const insertPosts = (postsArr) => {
         body = current.body;
         date = new Date(current.date).toString().slice(0,24);
        
-        let container = document.getElementById('posts-container').insertAdjacentHTML('afterbegin',`<div class="card gedf-card"><div class="card-header"><div class="d-flex justify-content-between align-items-center">` +
+        document.getElementById('posts-container').insertAdjacentHTML('afterbegin',`<div class="card gedf-card"><div class="card-header"><div class="d-flex justify-content-between align-items-center">` +
         `<div class="d-flex justify-content-between align-items-center"><div class="mr-2"><img class="rounded-circle" width="45" src="/images/mrX.jpg" alt="">` +
         `</div><div class="ml-2"><div class="h5 m-0">@anonimo</div><div class="h7 text-muted">Autor anonimo</div></div></div>` + 
         `<div><div class="dropdown"><button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">` + 
