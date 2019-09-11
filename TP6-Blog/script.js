@@ -59,10 +59,12 @@ const makePost = () => {
     });
 };
 async function getPostsAndComments(){
+    loadSpinner();
     const posts = await getPosts();
     const comments = await getComments();
     const completePosts = mapPostsAndComments(posts,comments);
     insertPosts(completePosts);
+    removeSpinner();
 };
 
 const mapPostsAndComments = (posts,comments) => {
@@ -92,12 +94,26 @@ const makePost = () => {
     .catch(error => console.log(error));
 }
 */
+const loadSpinner = () =>{
+    document.getElementById('posts-container').insertAdjacentHTML('beforeend',`<div class="spin"><div class="text-center">
+                    <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>`);
+};
 
+const removeSpinner = () => {
+    const spinner = document.querySelector('.spin');
+    spinner.parentNode.removeChild(spinner);
+};
 
 document.getElementById('share-button').addEventListener('click', async function abc() {
-    const a = await postPosts();
     document.getElementById('posts-container').innerHTML = '';
+    loadSpinner();
+    const a = await makePost();
     getPostsAndComments();
+    removeSpinner();
     document.getElementById('post-title').value = '';
     document.getElementById('post-body').value = '';
 });
@@ -108,7 +124,6 @@ const insertPosts = (postsArr) => {
         title = current.title;
         body = current.body;
         date = new Date(current.date).toString().slice(0,24);
-       
         document.getElementById('posts-container').insertAdjacentHTML('afterbegin',`<div class="card gedf-card"><div class="card-header"><div class="d-flex justify-content-between align-items-center">` +
         `<div class="d-flex justify-content-between align-items-center"><div class="mr-2"><img class="rounded-circle" width="45" src="/images/mrX.jpg" alt="">` +
         `</div><div class="ml-2"><div class="h5 m-0">@anonimo</div><div class="h7 text-muted">Autor anonimo</div></div></div>` + 
@@ -134,3 +149,4 @@ const insertPosts = (postsArr) => {
 };
 
 getPostsAndComments();
+
