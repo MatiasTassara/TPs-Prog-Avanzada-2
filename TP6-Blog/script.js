@@ -10,7 +10,7 @@ const getPosts = () =>{
 };
 
 
-const getComments = () => {
+const getAllComments = () => {
     return fetch('https://utn2019-avanzada2-tp6.herokuapp.com/api/comments')
     .then(response => {
         return response.json();
@@ -19,6 +19,16 @@ const getComments = () => {
         console.log(error);
     });
 };
+
+const getCommentsOnePost = (idPost) => {
+    return fetch(`https://utn2019-avanzada2-tp6.herokuapp.com/api/comments?post_id=${idPost}`)
+    .then(response => {
+        return response.json();
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
 
 //get with XHR
 /*
@@ -44,24 +54,41 @@ const makePost = () => {
     return new Promise((resolve,reject) => {
     const title = document.getElementById('post-title').value;
     const body = document.getElementById('post-body').value;
-    const data = {title,body}
         var request = new XMLHttpRequest();
-        request.open('POST',`https://utn2019-avanzada2-tp6.herokuapp.com//api/posts?title=${title}&body=${body}`);
+        request.open('POST',`https://utn2019-avanzada2-tp6.herokuapp.com/api/posts?title=${title}&body=${body}`);
         request.responseType = 'json';
         request.onload = () =>{
             if(request.status <= 200 && request.status < 300){
                 resolve(request.response);
             }else{
-                reject(Error('Posts not found' + request.statusText))
+                reject(Error('Post rejected \n' + request.statusText))
             }
         }
         request.send();
     });
 };
+
+const makeComment = (comment,idPost) => {
+    return new Promise((resolve,reject) => {
+        var request = new XMLHttpRequest();
+        request.open('POST',`https://utn2019-avanzada2-tp6.herokuapp.com/api/comments?post_id=${idPost}&author=${''}&text=${comment}`);
+        request.responseType = 'json';
+        request.onload = () =>{
+            if(request.status <= 200 && request.status < 300){
+                resolve(request.response);
+            }else{
+                reject(Error('Comment rejected \n' + request.statusText))
+            }
+        }
+        request.send();
+    });
+};
+
+
 async function getPostsAndComments(){
     loadSpinner();
     const posts = await getPosts();
-    const comments = await getComments();
+    const comments = await getAllComments();
     const completePosts = mapPostsAndComments(posts,comments);
     insertPosts(completePosts);
     removeSpinner();
@@ -96,11 +123,8 @@ const makePost = () => {
 */
 const loadSpinner = () =>{
     document.getElementById('posts-container').insertAdjacentHTML('beforeend',`<div class="spin"><div class="text-center">
-                    <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-            </div>`);
+         <div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only"></span>
+         </div></div></div>`);
 };
 
 const removeSpinner = () => {
@@ -111,16 +135,19 @@ const removeSpinner = () => {
 document.getElementById('share-button').addEventListener('click', async function abc() {
     document.getElementById('posts-container').innerHTML = '';
     loadSpinner();
-    const a = await makePost();
+    await makePost();
     getPostsAndComments();
     removeSpinner();
     document.getElementById('post-title').value = '';
     document.getElementById('post-body').value = '';
 });
 
+
+
 const insertPosts = (postsArr) => {
     let title,body;
     postsArr.forEach(current => {
+        console.log(current.id);
         title = current.title;
         body = current.body;
         date = new Date(current.date).toString().slice(0,24);
@@ -133,7 +160,8 @@ const insertPosts = (postsArr) => {
         `</div><div class="card-body"><div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>${date}</div><a class="card-link" href="#">` + 
         `<h5 class="card-title">${title}</h5></a><p class="card-text">` +
         `${body}` + `</div><div id="card-footers${current.id}"><div class="card-footer"><a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>` +
-        `<a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a><a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a></div></div></div>`);
+        `<a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a><div class="input-group mb-3"></div><div class="input-group-prepend">
+        </div><input id="comment-${current.id}"type="text" class="form-control" placeholder="Make a comment"></div></div></div>`);
         
         if(current.commentsForThisPost.length > 0){
             document.getElementById(`card-footers${current.id}`).insertAdjacentHTML('beforeend','<div class="card-footer comment-title "><p>Comentarios</p></div>')
@@ -144,9 +172,30 @@ const insertPosts = (postsArr) => {
                 `<div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>${date}</div><p><div class="h6 text-muted">@${actual.author}</div>${actual.text}</p></div>`);
             });
             
-        }
+        };
+
+        const element = document.getElementById(`comment-${current.id}`);
+        element.addEventListener('keyup', async function(event){
+            if(event.keyCode == 13  && element.value.length > 0){
+                const textComment = element.value;
+                await makeComment(element.value,current.id);
+                const footer = document.getElementById(`card-footers${current.id}`);
+                element.value = '';
+                await getCommentsOnePost(current.id);
+                insertComments(footer,current.id,textComment);
+            }
+        })
     });
 };
 
+const insertComments = (element,idPost,comment) =>{
+        element.insertAdjacentHTML('beforeend',`<div id="comment-box${idPost}" class="card-footer bg-white"> 
+        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>aca va el date</div>
+        <p><div class="h6 text-muted">@</div>${comment}</p></div>`);
+};
+
+
+
 getPostsAndComments();
+
 
