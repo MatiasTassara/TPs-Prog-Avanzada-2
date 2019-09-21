@@ -160,7 +160,16 @@ const insertPosts = (postsArr) => {
         `</div><div class="card-body"><div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>${date}</div><a class="card-link" href="#">` + 
         `<h5 class="card-title">${title}</h5></a><p class="card-text">` +
         `${body}` + `</div><div id="card-footers${current.id}"><div class="card-footer"><a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>` +
-        `<a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a><div class="input-group mb-3"></div><div class="input-group-prepend">
+        `<a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a><div class="input-group mb-3"></div>
+        
+        <div class="input-group input-group-sm mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Author</span>
+  </div>
+  <input  id="author-${current.id}"type="text" class="form-control" placeholder="Your name here" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+</div>
+        
+        <div class="input-group-prepend">
         </div><input id="comment-${current.id}"type="text" class="form-control" placeholder="Make a comment"></div></div></div>`);
         
         if(current.commentsForThisPost.length > 0){
@@ -189,8 +198,9 @@ const insertPosts = (postsArr) => {
 };
 
 const insertComments = (element,idPost,comment) =>{
+        const date = new Date().toString().slice(0,24);
         element.insertAdjacentHTML('beforeend',`<div id="comment-box${idPost}" class="card-footer bg-white"> 
-        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>aca va el date</div>
+        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>${date}</div>
         <p><div class="h6 text-muted">@</div>${comment}</p></div>`);
 };
 
