@@ -78,7 +78,7 @@ class Item{
     };
 
     toString(){
-      return this.nombre;  
+      return 'nombre: ' + this.nombre + ' - precio: ' + this.precio;  
     };
 }
 
@@ -103,14 +103,15 @@ console.log(carrito);
 const total = carrito.calcTotal();
 console.log(total);
 
+console.log('------PUNTO5---------');
 
 const getFormvalue = () => {
     const body = document.querySelector('body');
     const firstName = Array.from(document.getElementsByName('fname'));
     const lastName = Array.from(document.getElementsByName('lname'));
     if(firstName[0].value.length > 0 && lastName[0].value.length > 0){
-        body.insertAdjacentHTML('beforeend', 'Form validado');
-        //document.write('Form validado')
+        //body.insertAdjacentHTML('beforeend', 'Form validado');
+        document.write('Form validado')
     }else{
         body.insertAdjacentHTML('beforeend', 'Form vacio invalido');
         //document.write('Form no validado')

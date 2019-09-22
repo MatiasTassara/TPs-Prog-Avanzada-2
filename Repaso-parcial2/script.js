@@ -1120,7 +1120,7 @@ document.getElementById('filter-button').addEventListener('click',() => {
         const sortedData = data.sort((a, b) => (a[key] > b[key]) ? 1 : -1);
         body.innerHTML = '';
         retrieveData(sortedData);
-    }else if(order == 'Desc'){
+    }else if(order == 'Desc' && field != 'Field'){
         const key = orderConditionElement.id;
         const sortedData = data.sort((a, b) => (b[key] > a[key]) ? 1 : -1);
         body.innerHTML = '';
